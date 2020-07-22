@@ -20,7 +20,7 @@ bool ThreadPool::reset(thread_pool_cfg_st cfg){
 }
 
 bool ThreadPool::start(){
-    if(!IsAvailable()){
+    if(!is_available()){
         return false;
     }
 

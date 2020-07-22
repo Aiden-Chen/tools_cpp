@@ -117,21 +117,21 @@ public:
     bool start();
 
     // 获取当前线程池已经执行过的函数个数
-    int GetRunnedFuncNum() const { return this->total_function_num_.load(); }
+    inline int GetRunnedFuncNum() const { return this->total_function_num_.load(); }
 
     // 获取正在处于等待状态的线程的个数
-    int GetWaitingThreadSize() const { return this->waiting_thread_num_.load(); }
+    inline int GetWaitingThreadSize() const { return this->waiting_thread_num_.load(); }
 
     // 获取线程池中当前线程的总个数
-    int GetTotalThreadSize() const { return this->worker_threads_.size(); }
+    inline int GetTotalThreadSize() const { return this->worker_threads_.size(); }
 
     // 当线程池内部的任务完成后，关闭线程池
-    void shutdown(){
+    inline void shutdown(){
         shutdown(false);
     }
 
     // 立即关闭线程池，线程池内部的任务不会被执行，直接取消
-    void shutdown_now(){
+    inline void shutdown_now(){
         shutdown(true);
     }
 
@@ -141,7 +141,7 @@ public:
     template<typename F, typename... Args>
     auto run(F &&f, Args &&... args) ->
     std::shared_ptr<std::future<std::result_of_t<F(Args...)> > >{
-        if( this->is_shutdown_.load() || this->is_shutdown_now_.load() || !IsAvailable() )
+        if( this->is_shutdown_.load() || this->is_shutdown_now_.load() || !is_available() )
             return nullptr;
 
         if( 0 == GetWaitingThreadSize() && GetTotalThreadSize() < this->cfg_.max_threads ){
@@ -163,7 +163,7 @@ public:
         return std::make_shared<std::future<std::result_of_t<F(Args...)> > >(std::move(res));
     }
 
-    bool IsAvailable() const { return this->is_availble_.load(); }
+    inline bool is_available() const { return this->is_availble_.load(); }
 
 private:
     /* *
@@ -174,10 +174,10 @@ private:
     /* *
      * 获取下一个线程的线程id号
      * */
-    int get_next_thread_id() { return this->thread_id_++; }
+    inline int get_next_thread_id() { return this->thread_id_++; }
 
 
-    void add_thread(int id) { add_thread(id, ThreadFlag::kCore); }
+    inline void add_thread(int id) { add_thread(id, ThreadFlag::kCore); }
 
     void add_thread(int id, ThreadFlag flag);
 

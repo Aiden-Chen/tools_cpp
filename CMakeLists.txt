@@ -54,14 +54,12 @@ endif()
 # set src directories to build library tool
 set(tool_src_dir
         utils/src
-        utils/src/timer
         utils/src/threadpool)
 
 # set include directories to build library tool
 set(tool_inc_dir
         utils/include
-        utils/include/threadpool
-        utils/include/timer)
+        utils/include/threadpool)
 
 # build FPGA Simulator
 include_directories(${tool_inc_dir})
@@ -72,6 +70,8 @@ endforeach()
 
 
 add_library(${tool_lib} SHARED ${tool_build_list})
+
+add_subdirectory(test)
 
 ################################################
 #       build library tool end

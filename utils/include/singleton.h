@@ -38,7 +38,7 @@ private:
 
 template<typename T> std::shared_ptr<T> Singleton<T>::singleton_ptr;
 
-}
+} //end namespace aiden
 
 
 #endif //COMMON_TOOL_SINGLETON_H
