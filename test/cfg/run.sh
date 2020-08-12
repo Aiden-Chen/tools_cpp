@@ -14,6 +14,10 @@ run(){
             echo "timer_queue_test"
             ./timer_queue_test
         ;;
+        2)
+            echo "ini_parser_test"
+            ./ini_parser_test ./cfg/test_op_file.ini
+        ;;
         *)
             echo "Don't support this command"
         ;;
@@ -26,9 +30,10 @@ echo "starting..."
 
 if [ $# -lt 1 ];
 then
-    echo "Missing parameter: ./run.sh 0~1"
+    echo "Missing parameter: ./run.sh 0~2"
     echo "0: thread_pool_test"
     echo "1: timer_queue_test"
+    echo "2: ini_parser_test"
     exit
 fi
 

@@ -1,7 +1,7 @@
 ################################################################################
 ##
 ## Copyright (c) 2018-2020 Aiden Inc. All rights reserved.
-## email: 18896628215@163.com
+## email: 16621182636@163.com
 ## Created by Aiden Chen on 7/17/2020
 ##
 ################################################################################
@@ -54,12 +54,14 @@ endif()
 # set src directories to build library tool
 set(tool_src_dir
         utils/src
-        utils/src/threadpool)
+        utils/src/threadpool
+        utils/src/op_file)
 
 # set include directories to build library tool
 set(tool_inc_dir
         utils/include
-        utils/include/threadpool)
+        utils/include/threadpool
+        utils/include/op_file)
 
 # build FPGA Simulator
 include_directories(${tool_inc_dir})

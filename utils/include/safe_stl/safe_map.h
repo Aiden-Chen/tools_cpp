@@ -1,7 +1,7 @@
 //
 // Created by aiden on 20-7-22.
 // Copyright (c) 2018-2020 Aiden Inc. All rights reserved.
-// email: 16621182636@163.com.com
+// email: 16621182636@163.com
 //
 
 #ifndef TOOLS_CPP_SAVE_MAP_H

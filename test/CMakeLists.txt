@@ -36,5 +36,20 @@ install(TARGETS ${timer_queue_name} RUNTIME DESTINATION .)
 ################################################
 
 
+################################################
+#       build ini parser test begin
+################################################
+set(ini_parser_name ini_parser_test)
+set(ini_parser_src_dir
+        ./ini_parser_test.cpp)
+
+add_executable( ${ini_parser_name} ${ini_parser_src_dir})
+target_link_libraries( ${ini_parser_name} ${tool_lib} pthread)
+install(TARGETS ${ini_parser_name} RUNTIME DESTINATION .)
+################################################
+#       build ini parser test begin
+################################################
+
 
 install(PROGRAMS   cfg/run.sh  DESTINATION .)
+install(PROGRAMS   cfg/test_op_file.ini  DESTINATION ./cfg)
