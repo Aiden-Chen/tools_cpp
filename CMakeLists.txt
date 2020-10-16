@@ -44,6 +44,11 @@ option(OPT_SAMPLE_ENABLE "option for unit test" ON)
 if (OPT_SAMPLE_ENABLE)
     add_definitions(-DOPT_SAMPLE_ENABLE)
 endif()
+
+option(OPT_DESIGN_PATERNS_ENABLE "option for design patterns" ON)
+if (OPT_DESIGN_PATERNS_ENABLE)
+    add_definitions(-DOPT_DESIGN_PATERNS_ENABLE)
+endif()
 ################################################
 #         Define option end
 ################################################
@@ -72,6 +77,10 @@ endforeach()
 
 
 add_library(${tool_lib} SHARED ${tool_build_list})
+
+if(OPT_DESIGN_PATERNS_ENABLE)
+    add_subdirectory(design_patterns)
+endif()
 
 add_subdirectory(test)
 
