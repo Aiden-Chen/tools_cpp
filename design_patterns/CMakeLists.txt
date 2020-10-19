@@ -12,7 +12,9 @@
 set(design_pattern_name design_pattern)
 set(design_pattern_src_dir
         factory_pattern/
-        singleton_pattern/)
+        singleton_pattern/
+        builder_pattern/
+        prototype_pattern/)
 
 include_directories(${design_pattern_src_dir})
 
