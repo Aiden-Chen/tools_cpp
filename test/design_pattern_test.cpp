@@ -8,6 +8,10 @@
 #include "../design_patterns/factory_pattern/abstract_factory_pattern.h"
 #include "../design_patterns/builder_pattern/builder_pattern.h"
 #include "../design_patterns/prototype_pattern/prototype_pattern.h"
+#include "../design_patterns/adapter_pattern/adapter_pattern.h"
+#include "../design_patterns/bridge_pattern/bridge_pattern.h"
+#include "../design_patterns/decorator_pattern/decorator_pattern.h"
+#include "../design_patterns/composite_pattern/composite_pattern.h"
 
 using namespace patterns;
 
@@ -54,6 +58,81 @@ void prototype_pattern_test(){
     delete prototype_b;
 }
 
+void adapter_pattern_test(){
+    std::string name = "aiden";
+    // 类适配器
+    std::shared_ptr<AdapterClass> adapter_class =
+            std::make_shared<AdapterClass>(name);
+    std::string output = adapter_class->get_name();
+    std::cout << "adapter class->" << output << std::endl;
+
+    std::shared_ptr<Adaptee> adaptee = std::make_shared<Adaptee>();
+    std::shared_ptr<AdapterObject> adapter_object =
+            std::make_shared<AdapterObject>(adaptee, name);
+    output = adapter_object->get_name();
+    std::cout << "adapter object->" << output << std::endl;
+}
+
+void bridge_pattern_test(){
+    std::shared_ptr<ImplementAbstract> impelment_a = std::make_shared<ConcreteImplementA>();
+    std::shared_ptr<Abstract> abstract_a = std::make_shared<RefineAbstractA>(impelment_a);
+    abstract_a->Operation();
+    std::cout << "*******************************" << std::endl;
+
+    std::shared_ptr<ImplementAbstract> impelment_b = std::make_shared<ConcreteImplementB>();
+    abstract_a.reset(new RefineAbstractA(impelment_b));
+    abstract_a->Operation();
+    std::cout << "-------------------------------" << std::endl;
+
+    std::shared_ptr<Abstract> abstract_b = std::make_shared<RefineAbstractB>(impelment_a);
+    abstract_b->Operation();
+    std::cout << "*******************************" << std::endl;
+
+    abstract_b.reset(new RefineAbstractB(impelment_b));
+    abstract_b->Operation();
+}
+
+void decorator_pattern_test(){
+    std::shared_ptr<Component> component = std::make_shared<ConcreteComponent>();
+
+    std::shared_ptr<ConcreteDecoratorA> decorator_a = std::make_shared<ConcreteDecoratorA>("aiden");
+    decorator_a->setComponent(component);
+    decorator_a->Operation();
+    std::cout << decorator_a->get_name() << std::endl;
+
+    std::cout << "--------------------------------------------------" << std::endl;
+
+    std::shared_ptr<ConcreteDecoratorB> decorator = std::make_shared<ConcreteDecoratorB>();
+    decorator->setComponent(component);
+    decorator->Operation();
+    decorator->add_behavior();
+}
+
+void composite_pattern_test(){
+    std::shared_ptr<compposite_pattern::Component> root = std::make_shared<compposite_pattern::Composite>("root");
+    std::shared_ptr<compposite_pattern::Component> leaf_1 = std::make_shared<compposite_pattern::Leaf>("Leaf1");
+    std::shared_ptr<compposite_pattern::Component> leaf_2 = std::make_shared<compposite_pattern::Leaf>("Leaf2");
+    std::shared_ptr<compposite_pattern::Component> composite_1 = std::make_shared<compposite_pattern::Composite>("Composite1");
+    std::shared_ptr<compposite_pattern::Component> composite_2 = std::make_shared<compposite_pattern::Composite>("Composite2");
+
+    composite_1->add(composite_2);
+    composite_1->add(leaf_2);
+
+    root->add(leaf_1);
+    root->add(leaf_2);
+    root->add(composite_1);
+    root->add(composite_2);
+
+    root->Operator();
+    std::cout << "*****************************************" << std::endl;
+    std::shared_ptr<compposite_pattern::Component> component_tmp =  root->get_current_component(2);
+    component_tmp->Operator();
+}
+
+#include <time.h>
+#include <stdio.h>
+#include <math.h>
+
 int main()
 {
     int run_type;
@@ -63,8 +142,12 @@ int main()
     std::cout << "3. abstract factory pattern test" << std::endl;
     std::cout << "4. builder pattern test" << std::endl;
     std::cout << "5. prototype pattern test" << std::endl;
+    std::cout << "6. adapter pattern test" << std::endl;
+    std::cout << "7. bridge pattern test" << std::endl;
+    std::cout << "8. decorator pattern test" << std::endl;
+    std::cout << "9. compsite pattern test" << std::endl;
     std::cout << "***********************************************************" << std::endl;
-    std::cout << "Please input design patterns cmd(1 ~ 5): ";
+    std::cout << "Please input design patterns cmd(1 ~ 9): ";
     std::cin >> run_type;
 
     switch(run_type){
@@ -82,6 +165,18 @@ int main()
             break;
         case 5:
             prototype_pattern_test();
+            break;
+        case 6:
+            adapter_pattern_test();
+            break;
+        case 7:
+            bridge_pattern_test();
+            break;
+        case 8:
+            decorator_pattern_test();
+            break;
+        case 9:
+            composite_pattern_test();
             break;
         default:
             std::cout << "Don't support this design pattern cmd " << run_type

@@ -14,7 +14,11 @@ set(design_pattern_src_dir
         factory_pattern/
         singleton_pattern/
         builder_pattern/
-        prototype_pattern/)
+        prototype_pattern/
+        adapter_pattern/
+        bridge_pattern/
+        decorator_pattern/
+        composite_pattern/)
 
 include_directories(${design_pattern_src_dir})
 
